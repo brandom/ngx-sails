@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "dist",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "skipLibCheck": true,
+    "stripInternal": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "types": [
+      "jasmine",
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types/"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

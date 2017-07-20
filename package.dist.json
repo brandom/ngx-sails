@@ -1,0 +1,32 @@
+{
+  "name": "ngx-sails",
+  "version": "0.1.3",
+  "description": "Sails client for Angular (2+)",
+  "main": "bundles/ngx-sails.umd.js",
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brandom/ngx-sails"
+  },
+  "author": {
+    "name": "Brandon Van Noy",
+    "email": "brandom.v@gmail.com"
+  },
+  "keywords": [
+    "angular",
+    "sails"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brandom/ngx-sails/issues"
+  },
+  "dependencies": {
+    "@types/socket.io-client": "^1.4.29",
+    "socket.io-client": "^2.0.2"
+  },
+  "peerDependencies": {
+    "@angular/core": "^2.0.0 || ^4.0.0",
+    "rxjs": "^5.1.0"
+  }
+}

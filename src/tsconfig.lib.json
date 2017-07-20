@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "exclude": [
+    "**/*.spec.ts"
+  ],
+  "files": [
+    "./index.ts"
+  ],
+  "angularCompilerOptions": {
+    "genDir": "../compiled",
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": false
+  }
+}
