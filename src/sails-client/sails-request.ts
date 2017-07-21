@@ -28,10 +28,6 @@ export class SailsRequest {
 }
 
 function lowerCaseHeaders(headers: any) {
-  if (!headers) {
-    return undefined;
-  }
-
   Object.keys(headers).forEach(header => {
     if (header.toLowerCase() !== header) {
       headers[header.toLowerCase()] = headers[header];
