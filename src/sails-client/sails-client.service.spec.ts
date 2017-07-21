@@ -9,7 +9,7 @@ import { SailsClient } from './sails-client.service';
 
 const { client, server } = require('../../tests/server');
 
-const config: ISailsClientConfig = { uri: '', headers: { default: 'header' } };
+const config: ISailsClientConfig = { uri: '', options: { transports: ['polling'] } };
 
 describe('SailsClientService', () => {
   let service: SailsClient;
@@ -126,7 +126,7 @@ describe('SailsClientService', () => {
 
   it('should lower case headers keys', done => {
     service.get('success', { headers: { UPPERCASE: 'YES' } }).subscribe(res => {
-      expect(res.config.headers).toEqual({ uppercase: 'YES', default: 'header' });
+      expect(res.config.headers).toEqual({ uppercase: 'YES' });
       done();
     });
   });
@@ -137,5 +137,21 @@ describe('SailsClientService', () => {
       done();
     });
   });
+
+  it('should send default headers', done => {
+    const config: ISailsClientConfig = { uri: '', headers: { 'default': 'headers' } };
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [SailsClientModule.configureClient(config, client)]
+    });
+
+    let service: SailsClient = TestBed.get(SailsClient);
+
+    service.get('success').subscribe(res => {
+      expect(res.config.headers).toEqual({default: 'headers'});
+      done();
+    })
+  })
 
 });
