@@ -4,7 +4,7 @@ import { SocketIOConnectOpts } from '../io';
 export interface ISailsClientConfig {
   uri?: string,
   headers?: any,
-  ioOptions?: SocketIOConnectOpts
+  options?: SocketIOConnectOpts
 }
 
 export let SAILS_CLIENT_CONFIG = new InjectionToken<ISailsClientConfig>('sails.client.config');

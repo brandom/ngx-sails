@@ -15,7 +15,7 @@ export function provideSailsClient(config: ISailsClientConfig, io?: any) {
   ]
 })
 export class SailsClientModule {
-  public static configureClient(config: ISailsClientConfig, ioInstance?: any): ModuleWithProviders {
+  public static configureClient(config?: ISailsClientConfig, ioInstance?: any): ModuleWithProviders {
     return {
       ngModule: SailsClientModule,
       providers: [

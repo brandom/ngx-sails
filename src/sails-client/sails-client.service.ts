@@ -11,6 +11,10 @@ import { clean } from './utils';
 
 const SAILS_SDK_VERSION_KEY = '__sails_io_sdk_version';
 const SAILS_SDK_VERSION_VALUE = '1.1.12';
+const SAILS_SDK_PLATFORM_KEY = '__sails_io_sdk_platform'
+const SAILS_SDK_PLATFORM_VALUE = 'browser';
+const SAILS_SDK_LANGUAGE_KEY = '__sails_io_sdk_language';
+const SAILS_SDK_LANGUAGE_VALUE = 'javascript';
 
 @Injectable()
 export class SailsClient {
@@ -18,17 +22,11 @@ export class SailsClient {
   private io: SocketIOSocket;
   private defaultHeaders: any;
 
-  constructor(config: ISailsClientConfig, ioInstance?: any) {
-    const query = { [SAILS_SDK_VERSION_KEY]: SAILS_SDK_VERSION_VALUE };
-    const options: SocketIOConnectOpts = { transports: ['websocket'], query };
-    let uri;
-    try {
-      uri = config.uri || window.location.origin;
-    } catch (e) {
-      throw new Error('SailsClient: Could not configure socket.io connection. Please provide the URI in the socket config.');
+  constructor(config: ISailsClientConfig = {}, ioInstance?: any) {
+    const { uri, options } = this.getConfig(config);
+    if (config.headers) {
+      this.defaultHeaders = config.headers;
     }
-    Object.assign(options, config.ioOptions);
-    this.defaultHeaders = config.headers;
     ioInstance ? this.io = ioInstance : this.io = io(uri, options);
   }
 
@@ -79,5 +77,30 @@ export class SailsClient {
       }
     );
     return SailsRequest.send(clean(request), this.io);
+  }
+
+  private getConfig(config: ISailsClientConfig) {
+    let uri;
+
+    const query = {
+      [SAILS_SDK_VERSION_KEY]: SAILS_SDK_VERSION_VALUE,
+      [SAILS_SDK_PLATFORM_KEY]: SAILS_SDK_PLATFORM_VALUE,
+      [SAILS_SDK_LANGUAGE_KEY]: SAILS_SDK_LANGUAGE_VALUE
+    };
+
+    const options: SocketIOConnectOpts = { transports: ['websocket'] };
+
+    try {
+      uri = config.uri || window.location.origin;
+    } catch (e) {
+      throw new Error('SailsClient: Could not configure socket.io connection. Please provide the URI in the socket config.');
+    }
+
+    if (config.options) {
+      Object.assign(query, config.options.query);
+      Object.assign(options, config.options, { query });
+    }
+
+    return { uri, options };
   }
 }
