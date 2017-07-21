@@ -15,7 +15,9 @@
   },
   "keywords": [
     "angular",
-    "sails"
+    "sails",
+    "socket",
+    "socket.io"
   ],
   "license": "MIT",
   "bugs": {
