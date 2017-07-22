@@ -35,12 +35,6 @@ module.exports = function (config) {
     client: {
       captureConsole: true,
       clearContext: false
-    },
-    customLaunchers: {
-      Chrome_travis_ci: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      }
     }
   };
 
