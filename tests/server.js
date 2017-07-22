@@ -1,7 +1,6 @@
 const { Server, Client } = require('mock-socket.io');
 
 const io = new Server();
-const client = new Client(io);
 
 io.on('connect', socket => {
   socket.on('get', (request, cb) => {
@@ -50,5 +49,5 @@ function getResponse(request) {
   return response;
 }
 
-module.exports.client = client;
-module.exports.server = io;
+module.exports.MockClient = Client;
+module.exports.MockServer = io;

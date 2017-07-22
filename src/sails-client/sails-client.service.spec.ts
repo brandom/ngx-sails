@@ -7,19 +7,18 @@ import { InjectionToken } from '@angular/core';
 import { RequestMethod } from './enums';
 import { SailsClient } from './sails-client.service';
 
-const { client, server } = require('../../tests/server');
+const { MockServer, MockClient } = require('../../tests/server');
 
 const config: ISailsClientConfig = { uri: '', options: { transports: ['polling'] } };
 
 describe('SailsClientService', () => {
   let service: SailsClient;
-  let serverIO: any;
+  let client;
 
   beforeAll(done => {
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
-    server.on('connect', (socket: any) => {
-      serverIO = socket;
-      client.off = function () { };
+    client = new MockClient(MockServer);
+    client.off = function () {};
+    client.on('connect', (socket: any) => {
       done();
     });
   });
@@ -108,9 +107,9 @@ describe('SailsClientService', () => {
     let sub = service.on('event').subscribe(res => {
       expect(res).toBe('message');
     })
-    serverIO.emit('event', 'message');
+    MockServer.emit('event', 'message');
     sub.unsubscribe();
-    server.emit('event', 'no listener');
+    MockServer.emit('event', 'no listener');
     setTimeout(() => {
       done();
     }, 500);
