@@ -149,9 +149,27 @@ describe('SailsClientService', () => {
     let service: SailsClient = TestBed.get(SailsClient);
 
     service.get('success').subscribe(res => {
-      expect(res.config.headers).toEqual({default: 'headers'});
+      expect(res.config.headers).toEqual({ default: 'headers' });
       done();
-    })
-  })
+    });
+  });
+
+  it('should extend socket query params', () => {
+    const config: ISailsClientConfig = { uri: '', options: { query: { 'custom': 'query' } } };
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      imports: [SailsClientModule.configureClient(config, client)]
+    });
+
+    let service: SailsClient = TestBed.get(SailsClient);
+
+    expect(service.configuration.options.query).toEqual(​​​​​{
+      __sails_io_sdk_version: '1.1.12',
+      __sails_io_sdk_platform: 'browser',
+      __sails_io_sdk_language: 'javascript',
+      custom: 'query'
+    }​​​​​);
+  });
 
 });
