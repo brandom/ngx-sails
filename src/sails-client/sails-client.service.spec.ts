@@ -20,9 +20,7 @@ describe('SailsClientService', () => {
     server.on('connect', (socket: any) => {
       serverIO = socket;
       client.off = function () { };
-      client.on('connect', () => {
-        done();
-      });
+      done();
     });
   });
 
