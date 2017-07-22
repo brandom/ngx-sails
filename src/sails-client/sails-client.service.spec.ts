@@ -16,6 +16,7 @@ describe('SailsClientService', () => {
   let serverIO: any;
 
   beforeAll(done => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000;
     server.on('connect', (socket: any) => {
       serverIO = socket;
       client.off = function () { };
