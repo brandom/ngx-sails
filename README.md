@@ -65,6 +65,12 @@ class ExampleComponent implements OnInit {
 * on(event: `string`): `Observable<any>`
 
 ```ts
+interface ISailsClientConfig {
+  uri?: string,
+  headers?: any,
+  options?: SocketIOConnectOpts
+}
+
 interface ISailsRequestOpts {
   headers?: any
   params?: any
@@ -76,13 +82,5 @@ interface ISailsResponse {
   status: number
   headers: any
   config: ISailsRequest
-}
-
-export interface ISailsRequest {
-  url: string
-  method: RequestMethod
-  headers?: any
-  body?: any
-  params?: any
 }
 ```
