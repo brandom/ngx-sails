@@ -66,9 +66,5 @@ module.exports = function (config) {
     };
   }
 
-  if (process.env.TRAVIS) {
-    CONFIGURATION.browsers = ['Chrome_travis_ci'];
-  }
-
   config.set(CONFIGURATION);
 };
