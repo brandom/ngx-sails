@@ -21,6 +21,8 @@ export class SailsClient {
 
   private io: SocketIOSocket;
   private defaultHeaders: any;
+  private uri: string;
+  private configOptions: SocketIOConnectOpts;
 
   constructor(config: ISailsClientConfig = {}, ioInstance?: any) {
     const { uri, options } = this.getConfig(config);
@@ -28,6 +30,8 @@ export class SailsClient {
       this.defaultHeaders = config.headers;
     }
     ioInstance ? this.io = ioInstance : this.io = io(uri, options);
+    this.uri = uri;
+    this.configOptions = options;
   }
 
   get(url: string, options?: ISailsRequestOpts): Observable<ISailsResponse> {
@@ -68,6 +72,10 @@ export class SailsClient {
     });
   }
 
+  get configuration() {
+    return <ISailsClientConfig>{uri: this.uri, headers: this.defaultHeaders, options: this.configOptions};
+  }
+
   private sendRequest(url: string, method: RequestMethod, body?: any, options: ISailsRequestOpts = {}) {
     let request: ISailsRequest = { url, method, body };
     Object.assign(request,
@@ -96,10 +104,11 @@ export class SailsClient {
       throw new Error('SailsClient: Could not configure socket.io connection. Please provide the URI in the socket config.');
     }
 
-    if (config.options) {
+    if (config.options && config.options.query) {
       Object.assign(query, config.options.query);
-      Object.assign(options, config.options, { query });
     }
+
+    Object.assign(options, config.options, { query });
 
     return { uri, options };
   }
