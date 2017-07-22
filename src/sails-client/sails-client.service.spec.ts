@@ -131,9 +131,17 @@ describe('SailsClientService', () => {
     });
   });
 
-  it('error on unknown url', done => {
+  it('should error on 404', done => {
     service.get('unknown').subscribe(res => { }, err => {
       expect(err.status).toBe(404);
+      done();
+    });
+  });
+
+  it('should handle empty response as 200', done => {
+    service.get('empty').subscribe(res => {
+      expect(res.status).toBe(200);
+      expect(res.data).toEqual({});
       done();
     });
   });

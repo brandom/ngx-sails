@@ -40,6 +40,9 @@ function getResponse(request) {
     case 'json-error':
       response = '{json: err}';
       break;
+    case 'empty':
+      response = {};
+      break;
     default:
       response = { statusCode: 404 };
       break;
