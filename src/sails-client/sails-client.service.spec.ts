@@ -13,7 +13,7 @@ const config: ISailsClientConfig = { uri: '', options: { transports: ['polling']
 
 describe('SailsClientService', () => {
   let service: SailsClient;
-  let client;
+  let client: any;
 
   beforeAll(done => {
     client = new MockClient(MockServer);

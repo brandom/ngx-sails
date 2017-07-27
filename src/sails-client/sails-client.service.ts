@@ -91,15 +91,9 @@ export class SailsClient {
   private getConfig(config: ISailsClientConfig) {
     const options: SocketIOConnectOpts = { transports: ['websocket'] };
 
-    let uri: string, query: any = {};
+    let uri = config.uri, query: any = {};
 
     Object.assign(query, Object.keys(SAILS_IO_SDK).forEach(k => query[`${SAILS_IO_SDK_STRING}_${k}`] = SAILS_IO_SDK[k]));
-
-    try {
-      uri = config.uri || window.location.origin;
-    } catch (e) {
-      throw new Error('SailsClient: Could not configure socket.io connection. Please provide the URI in the socket config.');
-    }
 
     if (config.options && config.options.query) {
       Object.assign(query, config.options.query);
