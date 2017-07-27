@@ -6,13 +6,13 @@
 
 A socket client for Angular (2+) applications that connect to a Sails socket.io API.
 
- ## Installation
+## Installation
 
  ```bash
  npm install ngx-sails
  ```
 
- ## Usage
+## Usage
 
 Add `SailsClientModule` to your application module.
 
