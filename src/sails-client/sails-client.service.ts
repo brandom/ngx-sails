@@ -9,12 +9,13 @@ import { RequestMethod } from './enums';
 import { SailsRequest } from './sails-request';
 import { clean } from './utils';
 
-const SAILS_SDK_VERSION_KEY = '__sails_io_sdk_version';
-const SAILS_SDK_VERSION_VALUE = '1.1.12';
-const SAILS_SDK_PLATFORM_KEY = '__sails_io_sdk_platform'
-const SAILS_SDK_PLATFORM_VALUE = 'browser';
-const SAILS_SDK_LANGUAGE_KEY = '__sails_io_sdk_language';
-const SAILS_SDK_LANGUAGE_VALUE = 'javascript';
+const SAILS_IO_SDK_STRING = '__sails_io_sdk';
+
+const SAILS_IO_SDK = {
+  language: 'javascript',
+  platform: 'browser',
+  version: '1.1.12'
+}
 
 @Injectable()
 export class SailsClient {
@@ -73,7 +74,7 @@ export class SailsClient {
   }
 
   get configuration() {
-    return <ISailsClientConfig>{uri: this.uri, headers: this.defaultHeaders, options: this.configOptions};
+    return <ISailsClientConfig>{ uri: this.uri, headers: this.defaultHeaders, options: this.configOptions };
   }
 
   private sendRequest(url: string, method: RequestMethod, body?: any, options: ISailsRequestOpts = {}) {
@@ -88,15 +89,11 @@ export class SailsClient {
   }
 
   private getConfig(config: ISailsClientConfig) {
-    let uri;
-
-    const query = {
-      [SAILS_SDK_VERSION_KEY]: SAILS_SDK_VERSION_VALUE,
-      [SAILS_SDK_PLATFORM_KEY]: SAILS_SDK_PLATFORM_VALUE,
-      [SAILS_SDK_LANGUAGE_KEY]: SAILS_SDK_LANGUAGE_VALUE
-    };
-
     const options: SocketIOConnectOpts = { transports: ['websocket'] };
+
+    let uri: string, query: any = {};
+
+    Object.assign(query, Object.keys(SAILS_IO_SDK).forEach(k => query[`${SAILS_IO_SDK_STRING}_${k}`] = SAILS_IO_SDK[k]));
 
     try {
       uri = config.uri || window.location.origin;
