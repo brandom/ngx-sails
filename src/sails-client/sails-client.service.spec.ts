@@ -1,9 +1,13 @@
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/empty';
+
 import { ISailsClientConfig, SAILS_CLIENT_CONFIG } from './sails-client.config';
 import { SailsClientModule, provideSailsClient } from './sails-client.module';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { IO_INSTANCE } from '../io';
 import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { RequestMethod } from './enums';
 import { SailsClient } from './sails-client.service';
 
@@ -158,6 +162,14 @@ describe('SailsClientService', () => {
       expect(res.config.headers).toEqual({ default: 'headers' });
       done();
     });
+  });
+
+  it('should notify of all errors', done => {
+    service.requestErrors.subscribe(res => {
+      expect(res.status).toBe(500);
+      done();
+    });
+    service.get('error').catch(() => Observable.empty()).subscribe();
   });
 
 });

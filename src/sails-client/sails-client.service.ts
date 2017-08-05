@@ -6,7 +6,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { RequestMethod } from './enums';
+import { SailsError } from './sails-response';
 import { SailsRequest } from './sails-request';
+import { Subject } from 'rxjs/Subject';
 import { clean } from './utils';
 
 const SAILS_IO_SDK_STRING = '__sails_io_sdk';
@@ -24,6 +26,9 @@ export class SailsClient {
   private defaultHeaders: any;
   private uri: string;
   private configOptions: SocketIOConnectOpts;
+  private errorsSubject: Subject<SailsError>;
+
+  requestErrors: Observable<SailsError>;
 
   constructor(config: ISailsClientConfig = {}, ioInstance?: any) {
     const { uri, options } = this.getConfig(config);
@@ -33,6 +38,8 @@ export class SailsClient {
     ioInstance ? this.io = ioInstance : this.io = io(uri, options);
     this.uri = uri;
     this.configOptions = options;
+    this.errorsSubject = new Subject();
+    this.requestErrors = this.errorsSubject.asObservable();
   }
 
   get(url: string, options?: ISailsRequestOpts): Observable<ISailsResponse> {
@@ -85,7 +92,7 @@ export class SailsClient {
         headers: Object.assign({}, this.defaultHeaders, options.headers)
       }
     );
-    return SailsRequest.send(clean(request), this.io);
+    return SailsRequest.send(clean(request), this.io, this.errorsSubject);
   }
 
   private getConfig(config: ISailsClientConfig) {
