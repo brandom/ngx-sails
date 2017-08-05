@@ -4,7 +4,7 @@ export interface ISailsRequest {
   url: string
   method: RequestMethod
   headers?: any
-  body?: any
+  data?: any
   params?: any
 }
 

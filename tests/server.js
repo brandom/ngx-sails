@@ -27,11 +27,11 @@ io.on('connect', socket => {
 });
 
 function getResponse(request) {
-  const { method, body, params } = request;
+  const { method, data, params } = request;
   let response;
   switch (request.url) {
     case 'success':
-      response = { statusCode: 200, body: { method, data: body || params } };
+      response = { statusCode: 200, body: { method, data: data || params } };
       break;
     case 'error':
       response = { statusCode: 500, body: 'ERROR' };

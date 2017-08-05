@@ -77,8 +77,8 @@ export class SailsClient {
     return <ISailsClientConfig>{ uri: this.uri, headers: this.defaultHeaders, options: this.configOptions };
   }
 
-  private sendRequest(url: string, method: RequestMethod, body?: any, options: ISailsRequestOpts = {}) {
-    let request: ISailsRequest = { url, method, body };
+  private sendRequest(url: string, method: RequestMethod, data?: any, options: ISailsRequestOpts = {}) {
+    let request: ISailsRequest = { url, method, data };
     Object.assign(request,
       {
         params: options.params || options.search,
