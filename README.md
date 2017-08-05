@@ -55,14 +55,20 @@ class ExampleComponent implements OnInit {
 
 ## API
 
-* get(url: `string`, options: `ISailsRequestOpts`): `Observable<ISailsResponse>`
-* post(url: `string`, body: `any`, options: `ISailsRequestOpts`): `Observable<ISailsResponse>`
-* put(url: `string`, body: `any`, options: `ISailsRequestOpts`): `Observable<ISailsResponse>`
-* patch(url: `string`, body: `any`, options: `ISailsRequestOpts`): `Observable<ISailsResponse>`
-* delete(url: `string`, options: `ISailsRequestOpts`): `Observable<ISailsResponse>`
-* head(url: `string`, options: `ISailsRequestOpts`): `Observable<ISailsResponse>`
-* options(url: `string`, options: `ISailsRequestOpts`): `Observable<ISailsResponse>`
+### Methods
+
+* get(url: `string`, options: `ISailsRequestOpts`): `Observable<SailsResponse>`
+* post(url: `string`, body: `any`, options: `ISailsRequestOpts`): `Observable<SailsResponse>`
+* put(url: `string`, body: `any`, options: `ISailsRequestOpts`): `Observable<SailsResponse>`
+* patch(url: `string`, body: `any`, options: `ISailsRequestOpts`): `Observable<SailsResponse>`
+* delete(url: `string`, options: `ISailsRequestOpts`): `Observable<SailsResponse>`
+* head(url: `string`, options: `ISailsRequestOpts`): `Observable<SailsResponse>`
+* options(url: `string`, options: `ISailsRequestOpts`): `Observable<SailsResponse>`
 * on(event: `string`): `Observable<any>`
+
+### Properties
+
+* requestErrors: `Observable<SailsError>`
 
 ```ts
 interface ISailsClientConfig {
@@ -77,10 +83,25 @@ interface ISailsRequestOpts {
   search?: any
 }
 
-interface ISailsResponse {
+class SailsResponse {
   data: any
   status: number
   headers: any
   config: ISailsRequest
+}
+
+class SailsError {
+  error: any
+  headers: any
+  status: number
+  config: ISailsRequest
+}
+
+interface ISailsRequest {
+  url: string
+  method: RequestMethod
+  headers?: any
+  data?: any
+  params?: any
 }
 ```
