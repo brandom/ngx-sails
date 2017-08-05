@@ -29,6 +29,9 @@ export default {
     '@angular/common': 'ng.common',
     'rxjs/Observable': 'Rx',
     'rxjs/Observer': 'Rx',
+    'rxjs/Subject': 'Rx',
     'rxjs/add/operator/map': 'Rx.Observable.prototype',
+    'rxjs/add/operator/catch': 'Rx.Observable.prototype',
+    'rxjs/add/observable/empty': 'Rx.Observable.prototype',
   }
 }
