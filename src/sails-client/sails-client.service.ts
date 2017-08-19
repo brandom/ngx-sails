@@ -22,13 +22,13 @@ const SAILS_IO_SDK = {
 @Injectable()
 export class SailsClient {
 
-  private io: SocketIOSocket;
   private defaultHeaders: any;
   private uri: string;
   private configOptions: SocketIOConnectOpts;
   private errorsSubject: Subject<SailsError>;
 
-  requestErrors: Observable<SailsError>;
+  public io: SocketIOSocket;
+  public requestErrors: Observable<SailsError>;
 
   constructor(config: ISailsClientConfig = {}, ioInstance?: any) {
     const { uri, options } = this.getConfig(config);
