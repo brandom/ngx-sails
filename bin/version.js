@@ -1,7 +1,7 @@
 const i = require('inquirer');
 const packageJSON = require('../package.json');
 const semver = require('semver');
-const { spawn } = require('child_process');
+const { spawnSync } = require('child_process');
 
 console.log(`Current version: ${packageJSON.version}`)
 
@@ -34,8 +34,11 @@ function getVersionInput() {
 }
 
 function writeVersion(version) {
-  spawn('node_modules/.bin/json', ['-I', '-f', 'package.json', '-e', `this.version="${version}"`]);
-  spawn('node_modules/.bin/json', ['-I', '-f', 'package-lock.json', '-e', `this.version="${version}"`]);
-  spawn('node_modules/.bin/json', ['-I', '-f', 'package.dist.json', '-e', `this.version="${version}"`]);
-  spawn('git', ['tag', `v${version}`]);
+  spawnSync('node_modules/.bin/json', ['-I', '-f', 'package.json', '-e', `this.version="${version}"`]);
+  spawnSync('node_modules/.bin/json', ['-I', '-f', 'package-lock.json', '-e', `this.version="${version}"`]);
+  spawnSync('node_modules/.bin/json', ['-I', '-f', 'package.dist.json', '-e', `this.version="${version}"`]);
+  spawnSync('git', ['add', 'package.json', 'package-lock.json', 'package.dist.json']);
+  spawnSync('git', ['commit', '-m', `chore: release v${version}`]);
+  spawnSync('git', ['tag', `v${version}`]);
+  console.log(`Commited and tagged release v${version}`);
 }
