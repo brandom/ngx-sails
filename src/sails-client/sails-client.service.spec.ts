@@ -6,7 +6,6 @@ import { SailsClientModule, provideSailsClient } from './sails-client.module';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { IO_INSTANCE } from '../io';
-import { InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { RequestMethod } from './enums';
 import { SailsClient } from './sails-client.service';
