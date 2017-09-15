@@ -2,11 +2,13 @@ import commonjs from 'rollup-plugin-commonjs';
 import resolveAliases from 'rollup-plugin-resolve-aliases'
 
 export default {
-  entry: 'dist/index.js',
-  dest: 'dist/bundles/ngx-sails.umd.js',
+  input: 'dist/index.js',
+  output: {
+    file: 'dist/bundles/ngx-sails.umd.js',
+    format: 'umd'
+  },
   sourceMap: false,
-  format: 'umd',
-  moduleName: 'ng.SailsClient',
+  name: 'ng.SailsClient',
   onwarn: (warning) => {
     if (warning.code === 'THIS_IS_UNDEFINED') {
       return;
