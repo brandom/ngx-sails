@@ -1,8 +1,8 @@
 import { ISailsRequest, ISailsRequestOpts, ISailsResponse } from './interfaces';
+import { Injectable, Optional } from '@angular/core';
 import { SocketIOConnectOpts, SocketIOSocket, io } from '../io';
 
 import { ISailsClientConfig } from './sails-client.config';
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { RequestMethod } from './enums';
@@ -30,7 +30,7 @@ export class SailsClient {
   public io: SocketIOSocket;
   public requestErrors: Observable<SailsError>;
 
-  constructor(config: ISailsClientConfig = {}, ioInstance?: any) {
+  constructor(config: ISailsClientConfig = {}, ioInstance?: SocketIOSocket) {
     const { uri, options } = this.getConfig(config);
     if (config.headers) {
       this.defaultHeaders = config.headers;

@@ -4,8 +4,9 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IO_INSTANCE } from './../io';
 import { SailsClient } from './sails-client.service';
+import { SocketIOSocket } from '../io/index';
 
-export function provideSailsClient(config: ISailsClientConfig, io?: any) {
+export function provideSailsClient(config: ISailsClientConfig, io?: SocketIOSocket) {
   return new SailsClient(config, io);
 }
 
@@ -15,7 +16,7 @@ export function provideSailsClient(config: ISailsClientConfig, io?: any) {
   ]
 })
 export class SailsClientModule {
-  public static configureClient(config?: ISailsClientConfig, ioInstance?: any): ModuleWithProviders {
+  public static configureClient(config?: ISailsClientConfig, ioInstance?: SocketIOSocket): ModuleWithProviders {
     return {
       ngModule: SailsClientModule,
       providers: [
