@@ -24,11 +24,12 @@
     "url": "https://github.com/brandom/ngx-sails/issues"
   },
   "dependencies": {
-    "@types/socket.io-client": "^1.4.29",
-    "socket.io-client": "^2.0.2"
+    "@types/socket.io-client": "^1.4.30",
+    "socket.io-client": "^2.0.3"
   },
   "peerDependencies": {
-    "@angular/core": "^2.0.0 || ^4.0.0",
-    "rxjs": "^5.1.0"
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "typescript": "^2.4.0"
   }
 }
