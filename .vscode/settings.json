@@ -26,5 +26,6 @@
     ".yarn-integrity": true,
     ".env": true,
     "dist/": true
-  }
+  },
+  "vsicons.presets.angular": true
 }
