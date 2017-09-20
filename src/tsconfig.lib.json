@@ -7,7 +7,7 @@
     "./index.ts"
   ],
   "angularCompilerOptions": {
-    "genDir": "../compiled",
+    "outDir": "../compiled",
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
     "skipMetadataEmit": false
