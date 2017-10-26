@@ -18,7 +18,7 @@
     "minify": "uglifyjs dist/bundles/ngx-sails.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ngx-sails.umd.min.js",
     "clean": "rm -rf dist && mkdir dist && cp package.dist.json dist/package.json && cp README.md dist/README.md",
     "build": "npm run build:bundle && npm run minify",
-    "build:dist": "npm run version && npm run build",
+    "build:dist": "npm run version && npm install && npm run build",
     "build:bundle": "npm run clean && npm run transpile && npm run package",
     "build:dev": "npm run build:bundle && npm pack ./dist",
     "build:watch": "npm-watch build:dev",
