@@ -29,12 +29,12 @@
     "version": "node ./bin/version"
   },
   "devDependencies": {
-    "@angular/common": "^4.4.6",
-    "@angular/compiler": "^4.4.6",
-    "@angular/compiler-cli": "^4.4.6",
-    "@angular/core": "^4.4.6",
-    "@angular/platform-browser": "^4.4.6",
-    "@angular/platform-browser-dynamic": "^4.4.6",
+    "@angular/common": "^5.0.0-rc.6",
+    "@angular/compiler": "^5.0.0-rc.6",
+    "@angular/compiler-cli": "^5.0.0-rc.6",
+    "@angular/core": "^5.0.0-rc.6",
+    "@angular/platform-browser": "^5.0.0-rc.6",
+    "@angular/platform-browser-dynamic": "^5.0.0-rc.6",
     "@types/jasmine": "^2.6.2",
     "@types/node": "^8.0.47",
     "@types/socket.io-client": "^1.4.31",
