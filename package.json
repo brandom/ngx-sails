@@ -1,6 +1,6 @@
 {
   "name": "ngx-sails",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Sails client for Angular (2+)",
   "watch": {
     "build:dev": {
