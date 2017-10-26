@@ -1,14 +1,13 @@
-import { ISailsRequest, ISailsRequestOpts, ISailsResponse } from './interfaces';
-import { Injectable, Optional } from '@angular/core';
-import { SocketIOConnectOpts, SocketIOSocket, io } from '../io';
-
-import { ISailsClientConfig } from './sails-client.config';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { RequestMethod } from './enums';
-import { SailsError } from './sails-response';
-import { SailsRequest } from './sails-request';
 import { Subject } from 'rxjs/Subject';
+import { io, IO_INSTANCE, SocketIOConnectOpts, SocketIOSocket } from '../io';
+import { RequestMethod } from './enums';
+import { ISailsRequest, ISailsRequestOpts, ISailsResponse } from './interfaces';
+import { ISailsClientConfig } from './sails-client.config';
+import { SailsRequest } from './sails-request';
+import { SailsError } from './sails-response';
 import { clean } from './utils';
 
 const SAILS_IO_SDK_STRING = '__sails_io_sdk';
@@ -30,7 +29,7 @@ export class SailsClient {
   public io: SocketIOSocket;
   public requestErrors: Observable<SailsError>;
 
-  constructor(config: ISailsClientConfig = {}, ioInstance?: SocketIOSocket) {
+  constructor(config: ISailsClientConfig = {}, @Inject(IO_INSTANCE) ioInstance?: SocketIOSocket) {
     const { uri, options } = this.getConfig(config);
     if (config.headers) {
       this.defaultHeaders = config.headers;
