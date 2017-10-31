@@ -53,15 +53,15 @@
     "mock-socket.io": "^1.1.0",
     "npm-watch": "^0.3.0",
     "rollup": "^0.50.0",
-    "rollup-plugin-commonjs": "^8.2.4",
+    "rollup-plugin-commonjs": "^8.2.6",
     "rollup-plugin-resolve-aliases": "^0.2.0",
     "rxjs": "^5.5.2",
     "semver": "^5.4.1",
     "socket.io-client": "^2.0.4",
     "sync-files": "^1.0.3",
     "tslint": "^5.8.0",
-    "typescript": "^2.5.3",
-    "uglify-js": "^3.1.5",
+    "typescript": "^2.6.1",
+    "uglify-js": "^3.1.6",
     "utf-8-validate": "2.0.0",
     "zone.js": "^0.8.18"
   }
