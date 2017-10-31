@@ -1,14 +1,13 @@
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/empty';
-
 import { ISailsClientConfig, SAILS_CLIENT_CONFIG } from './sails-client.config';
 import { SailsClientModule, provideSailsClient } from './sails-client.module';
 import { TestBed, inject } from '@angular/core/testing';
 
+import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { IO_INSTANCE } from '../io';
 import { Observable } from 'rxjs/Observable';
 import { RequestMethod } from './enums';
 import { SailsClient } from './sails-client.service';
+import { catchError } from 'rxjs/operators';
 
 const { MockServer, MockClient } = require('../../tests/server');
 
@@ -20,7 +19,7 @@ describe('SailsClientService', () => {
 
   beforeAll(done => {
     client = new MockClient(MockServer);
-    client.off = function () {};
+    client.off = function () { };
     client.on('connect', (socket: any) => {
       done();
     });
@@ -168,7 +167,7 @@ describe('SailsClientService', () => {
       expect(res.status).toBe(500);
       done();
     });
-    service.get('error').catch(() => Observable.empty()).subscribe();
+    service.get('error').pipe(catchError(() => new EmptyObservable())).subscribe();
   });
 
 });

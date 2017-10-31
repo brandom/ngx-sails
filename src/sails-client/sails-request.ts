@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/map';
-
 import { IRawSailsResponse, ISailsResponse } from './interfaces';
 import { SailsError, SailsResponse } from './sails-response';
 
@@ -8,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { SocketIOSocket } from '../io';
 import { Subject } from 'rxjs/Subject';
+import { map } from 'rxjs/operators';
 
 export class SailsRequest {
   static send(request: ISailsRequest, io: SocketIOSocket, errorsSubject: Subject<SailsError>) {
@@ -26,7 +25,7 @@ export class SailsRequest {
         }
         obs.complete();
       });
-    }).map((response: IRawSailsResponse) => new SailsResponse(response, request));
+    }).pipe(map((response: IRawSailsResponse) => new SailsResponse(response, request)));
   }
 }
 

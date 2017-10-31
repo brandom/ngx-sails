@@ -1,5 +1,6 @@
 import commonjs from 'rollup-plugin-commonjs';
-import resolveAliases from 'rollup-plugin-resolve-aliases'
+import resolveAliases from 'rollup-plugin-resolve-aliases';
+import rxPaths from 'rxjs/_esm5/path-mapping';
 
 export default {
   input: 'dist/index.js',
@@ -19,12 +20,15 @@ export default {
     commonjs(),
     resolveAliases({
       aliases: {
-        'socket.io-client': 'node_modules/socket.io-client/dist/socket.io.js'
+        'socket.io-client': 'node_modules/socket.io-client/dist/socket.io.js',
       }
     })
   ],
   external: (id) => {
     return id.startsWith('@angular') || id.startsWith('rxjs');
+  },
+  resolve: {
+    alias: rxPaths()
   },
   globals: {
     '@angular/core': 'ng.core',
@@ -32,8 +36,8 @@ export default {
     'rxjs/Observable': 'Rx',
     'rxjs/Observer': 'Rx',
     'rxjs/Subject': 'Rx',
-    'rxjs/add/operator/map': 'Rx.Observable.prototype',
-    'rxjs/add/operator/catch': 'Rx.Observable.prototype',
-    'rxjs/add/observable/empty': 'Rx.Observable.prototype',
+    'rxjs/observable/EmptyObservable': 'Rx.Observable',
+    'rxjs/operators': 'Rx.Observable',
+    'rxjs/operators/index': 'Rx.Observable',
   }
 }
