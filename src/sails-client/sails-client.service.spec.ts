@@ -7,7 +7,7 @@ import { IO_INSTANCE } from '../io';
 import { Observable } from 'rxjs/Observable';
 import { RequestMethod } from './enums';
 import { SailsClient } from './sails-client.service';
-import { catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators/catchError';
 
 const { MockServer, MockClient } = require('../../tests/server');
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { SocketIOSocket } from '../io';
 import { Subject } from 'rxjs/Subject';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs/operators/map';
 
 export class SailsRequest {
   static send(request: ISailsRequest, io: SocketIOSocket, errorsSubject: Subject<SailsError>) {

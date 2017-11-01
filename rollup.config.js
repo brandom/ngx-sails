@@ -37,7 +37,7 @@ export default {
     'rxjs/Observer': 'Rx',
     'rxjs/Subject': 'Rx',
     'rxjs/observable/EmptyObservable': 'Rx.Observable',
-    'rxjs/operators': 'Rx.Observable',
-    'rxjs/operators/index': 'Rx.Observable',
+    'rxjs/operators/catchError': 'Rx.Observable',
+    'rxjs/operators/map': 'Rx.Observable',
   }
 }
