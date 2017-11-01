@@ -1,13 +1,14 @@
+import { IO_INSTANCE, SocketIOConnectOpts, SocketIOSocket, io } from '../io';
+import { ISailsRequest, ISailsRequestOpts, ISailsResponse } from './interfaces';
 import { Inject, Injectable, Optional } from '@angular/core';
+
+import { ISailsClientConfig } from './sails-client.config';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { Subject } from 'rxjs/Subject';
-import { io, IO_INSTANCE, SocketIOConnectOpts, SocketIOSocket } from '../io';
 import { RequestMethod } from './enums';
-import { ISailsRequest, ISailsRequestOpts, ISailsResponse } from './interfaces';
-import { ISailsClientConfig } from './sails-client.config';
-import { SailsRequest } from './sails-request';
 import { SailsError } from './sails-response';
+import { SailsRequest } from './sails-request';
+import { Subject } from 'rxjs/Subject';
 import { clean } from './utils';
 
 const SAILS_IO_SDK_STRING = '__sails_io_sdk';
@@ -16,7 +17,7 @@ const SAILS_IO_SDK = {
   language: 'javascript',
   platform: 'browser',
   version: '1.1.12'
-}
+};
 
 @Injectable()
 export class SailsClient {
