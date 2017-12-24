@@ -1,4 +1,7 @@
 {
+  "rulesDirectory": [
+    "./tools/tslint-rules/"
+  ],
   "rules": {
     "no-unused-expression": true,
     "no-duplicate-variable": true,
@@ -13,6 +16,21 @@
     "quotemark": [
       true,
       "single"
+    ],
+    "ts-loader": true,
+    "import-blacklist": [
+      true,
+      "rxjs",
+      "rxjs/operators"
+    ],
+    "no-rxjs-patch-imports": [
+      true,
+      "src/**/*.ts"
+    ],
+    "missing-rollup-globals": [
+      true,
+      "./tools/package/rollup-globals.ts",
+      "src/**/*.ts"
     ]
   }
 }
