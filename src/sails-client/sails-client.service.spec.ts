@@ -1,17 +1,15 @@
-import { ISailsClientConfig, SAILS_CLIENT_CONFIG } from './sails-client.config';
-import { SailsClientModule, provideSailsClient } from './sails-client.module';
-import { TestBed, inject } from '@angular/core/testing';
+import { ISailsClientConfig } from './sails-client.config';
+import { SailsClientModule } from './sails-client.module';
+import { TestBed } from '@angular/core/testing';
 
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
-import { IO_INSTANCE } from '../io';
-import { Observable } from 'rxjs/Observable';
 import { RequestMethod } from './enums';
 import { SailsClient } from './sails-client.service';
 import { catchError } from 'rxjs/operators/catchError';
 
 const { MockServer, MockClient } = require('../../tests/server');
 
-const config: ISailsClientConfig = { uri: '', options: { transports: ['polling'] } };
+const config: ISailsClientConfig = { uri: '', options: { transports: [ 'polling' ] } };
 
 describe('SailsClientService', () => {
   let service: SailsClient;
@@ -19,7 +17,7 @@ describe('SailsClientService', () => {
 
   beforeAll(done => {
     client = new MockClient(MockServer);
-    client.off = function () { };
+    client.off = function() {};
     client.on('connect', (socket: any) => {
       done();
     });
@@ -27,13 +25,15 @@ describe('SailsClientService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SailsClientModule.configureClient(config, client)]
+      imports: [ SailsClientModule.configureClient(config, client) ],
     });
   });
 
-  beforeEach(inject([SailsClient], (sailsClient: SailsClient) => {
-    service = sailsClient;
-  }));
+  beforeEach(
+    inject([ SailsClient ], (sailsClient: SailsClient) => {
+      service = sailsClient;
+    })
+  );
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -48,13 +48,16 @@ describe('SailsClientService', () => {
   });
 
   it('should get error', done => {
-    service.get('error').subscribe(res => {
-      expect(res).toBeUndefined();
-    }, err => {
-      expect(err.status).toBe(500);
-      expect(err.error).toBe('ERROR');
-      done();
-    });
+    service.get('error').subscribe(
+      res => {
+        expect(res).toBeUndefined();
+      },
+      err => {
+        expect(err.status).toBe(500);
+        expect(err.error).toBe('ERROR');
+        done();
+      }
+    );
   });
 
   it('should post data', done => {
@@ -108,7 +111,7 @@ describe('SailsClientService', () => {
   it('should listen to events', done => {
     let sub = service.on('event').subscribe(res => {
       expect(res).toBe('message');
-    })
+    });
     MockServer.emit('event', 'message');
     sub.unsubscribe();
     MockServer.emit('event', 'no listener');
@@ -118,10 +121,13 @@ describe('SailsClientService', () => {
   });
 
   it('should error on invalid json', done => {
-    service.get('json-error').subscribe(res => { }, err => {
-      expect(err).toMatch(/Could not be parsed to JSON$/);
-      done();
-    });
+    service.get('json-error').subscribe(
+      res => {},
+      err => {
+        expect(err).toMatch(/Could not be parsed to JSON$/);
+        done();
+      }
+    );
   });
 
   it('should lower case headers keys', done => {
@@ -132,10 +138,13 @@ describe('SailsClientService', () => {
   });
 
   it('should error on 404', done => {
-    service.get('unknown').subscribe(res => { }, err => {
-      expect(err.status).toBe(404);
-      done();
-    });
+    service.get('unknown').subscribe(
+      res => {},
+      err => {
+        expect(err.status).toBe(404);
+        done();
+      }
+    );
   });
 
   it('should handle empty response as 200', done => {
@@ -147,11 +156,11 @@ describe('SailsClientService', () => {
   });
 
   it('should send default headers', done => {
-    const config: ISailsClientConfig = { uri: '', headers: { 'default': 'headers' } };
+    const config: ISailsClientConfig = { uri: '', headers: { default: 'headers' } };
 
     TestBed.resetTestingModule();
     TestBed.configureTestingModule({
-      imports: [SailsClientModule.configureClient(config, client)]
+      imports: [ SailsClientModule.configureClient(config, client) ],
     });
 
     let service: SailsClient = TestBed.get(SailsClient);
@@ -169,5 +178,4 @@ describe('SailsClientService', () => {
     });
     service.get('error').pipe(catchError(() => new EmptyObservable())).subscribe();
   });
-
 });

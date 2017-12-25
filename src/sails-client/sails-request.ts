@@ -1,4 +1,4 @@
-import { IRawSailsResponse, ISailsResponse } from './interfaces';
+import { IRawSailsResponse } from './interfaces';
 import { SailsError, SailsResponse } from './sails-response';
 
 import { ISailsRequest } from './index';

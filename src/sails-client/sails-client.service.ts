@@ -1,6 +1,6 @@
 import { IO_INSTANCE, SocketIOConnectOpts, SocketIOSocket, io } from '../io';
 import { ISailsRequest, ISailsRequestOpts, ISailsResponse } from './interfaces';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 
 import { ISailsClientConfig } from './sails-client.config';
 import { Observable } from 'rxjs/Observable';
@@ -16,12 +16,11 @@ const SAILS_IO_SDK_STRING = '__sails_io_sdk';
 const SAILS_IO_SDK = {
   language: 'javascript',
   platform: 'browser',
-  version: '1.1.12'
+  version: '1.1.12',
 };
 
 @Injectable()
 export class SailsClient {
-
   private defaultHeaders: any;
   private uri: string;
   private configOptions: SocketIOConnectOpts;
@@ -35,7 +34,7 @@ export class SailsClient {
     if (config.headers) {
       this.defaultHeaders = config.headers;
     }
-    ioInstance ? this.io = ioInstance : this.io = io(uri, options);
+    ioInstance ? (this.io = ioInstance) : (this.io = io(uri, options));
     this.uri = uri;
     this.configOptions = options;
     this.errorsSubject = new Subject();
@@ -81,26 +80,39 @@ export class SailsClient {
   }
 
   get configuration() {
-    return <ISailsClientConfig>{ uri: this.uri, headers: this.defaultHeaders, options: this.configOptions };
+    return <ISailsClientConfig>{
+      uri: this.uri,
+      headers: this.defaultHeaders,
+      options: this.configOptions,
+    };
   }
 
-  private sendRequest(url: string, method: RequestMethod, data?: any, options: ISailsRequestOpts = {}) {
+  private sendRequest(
+    url: string,
+    method: RequestMethod,
+    data?: any,
+    options: ISailsRequestOpts = {}
+  ) {
     let request: ISailsRequest = { url, method, data };
-    Object.assign(request,
-      {
-        params: options.params || options.search,
-        headers: Object.assign({}, this.defaultHeaders, options.headers)
-      }
-    );
+    Object.assign(request, {
+      params: options.params || options.search,
+      headers: Object.assign({}, this.defaultHeaders, options.headers),
+    });
     return SailsRequest.send(clean(request), this.io, this.errorsSubject);
   }
 
   private getConfig(config: ISailsClientConfig) {
-    const options: SocketIOConnectOpts = { transports: ['websocket'] };
+    const options: SocketIOConnectOpts = { transports: [ 'websocket' ] };
 
-    let uri = config.uri, query: any = {};
+    let uri = config.uri,
+      query: any = {};
 
-    Object.assign(query, Object.keys(SAILS_IO_SDK).forEach(k => query[`${SAILS_IO_SDK_STRING}_${k}`] = SAILS_IO_SDK[k]));
+    Object.assign(
+      query,
+      Object.keys(SAILS_IO_SDK).forEach(
+        k => (query[`${SAILS_IO_SDK_STRING}_${k}`] = SAILS_IO_SDK[k])
+      )
+    );
 
     if (config.options && config.options.query) {
       Object.assign(query, config.options.query);

@@ -1,7 +1,6 @@
 import { IRawSailsResponse, ISailsRequest } from './interfaces';
 
 export class Response {
-
   public headers: any;
   public status: number;
   public config: ISailsRequest;
@@ -16,12 +15,11 @@ export class Response {
     }
     this.config = request;
     this.headers = response.headers || {};
-    this.status = response.statusCode || 200
+    this.status = response.statusCode || 200;
   }
 }
 
 export class SailsResponse extends Response {
-
   public data: any;
 
   constructor(response: IRawSailsResponse, request: ISailsRequest) {
@@ -31,7 +29,6 @@ export class SailsResponse extends Response {
 }
 
 export class SailsError extends Response {
-
   public error: any;
 
   constructor(response: IRawSailsResponse, request: ISailsRequest) {
@@ -39,5 +36,3 @@ export class SailsError extends Response {
     this.error = response.body || {};
   }
 }
-
-

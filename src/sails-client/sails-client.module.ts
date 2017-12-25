@@ -11,12 +11,13 @@ export function provideSailsClient(config: ISailsClientConfig, io?: SocketIOSock
 }
 
 @NgModule({
-  imports: [
-    CommonModule
-  ]
+  imports: [ CommonModule ],
 })
 export class SailsClientModule {
-  public static configureClient(config?: ISailsClientConfig, ioInstance?: SocketIOSocket): ModuleWithProviders {
+  public static configureClient(
+    config?: ISailsClientConfig,
+    ioInstance?: SocketIOSocket
+  ): ModuleWithProviders {
     return {
       ngModule: SailsClientModule,
       providers: [
@@ -25,9 +26,9 @@ export class SailsClientModule {
         {
           provide: SailsClient,
           useFactory: provideSailsClient,
-          deps: [SAILS_CLIENT_CONFIG, IO_INSTANCE]
-        }
-      ]
+          deps: [ SAILS_CLIENT_CONFIG, IO_INSTANCE ],
+        },
+      ],
     };
   }
 }

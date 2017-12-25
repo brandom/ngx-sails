@@ -5,5 +5,5 @@ export enum RequestMethod {
   DELETE = 'delete',
   OPTIONS = 'options',
   HEAD = 'head',
-  PATCH = 'patch'
+  PATCH = 'patch',
 }
