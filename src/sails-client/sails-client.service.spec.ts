@@ -1,6 +1,6 @@
 import { ISailsClientConfig } from './sails-client.config';
 import { SailsClientModule } from './sails-client.module';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { EmptyObservable } from 'rxjs/observable/EmptyObservable';
 import { RequestMethod } from './enums';
