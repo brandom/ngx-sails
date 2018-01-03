@@ -12,17 +12,15 @@ export default {
     file: 'dist/bundles/ngx-sails.umd.js',
     format: 'umd',
   },
-  sourceMap: false,
+  sourcemap: false,
   plugins: [
     commonjs(),
     resolveAliases({
       aliases: {
         'socket.io-client': 'node_modules/socket.io-client/dist/socket.io.js',
       },
+      ...rxPaths,
     }),
   ],
   external: Object.keys(rollupGlobals),
-  resolve: {
-    alias: rxPaths(),
-  },
 };

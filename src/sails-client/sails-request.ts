@@ -10,12 +10,10 @@ import { map } from 'rxjs/operators/map';
 
 export class SailsRequest {
   static send(request: ISailsRequest, io: SocketIOSocket, errorsSubject: Subject<SailsError>) {
-    const { method } = request;
-
     request.headers = lowerCaseHeaders(request.headers);
 
     return Observable.create((obs: Observer<IRawSailsResponse>) => {
-      io.emit(method, request, (rawResponse: IRawSailsResponse) => {
+      io.request(request, (data, rawResponse: IRawSailsResponse) => {
         if (rawResponse.statusCode >= 400) {
           const error = new SailsError(rawResponse, request);
           errorsSubject.next(error);

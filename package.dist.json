@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "@types/socket.io-client": "^1.4.30",
+    "@types/sails.io.js": "^1.0.1",
+    "sails.io.js": "^1.1.13",
     "socket.io-client": "^2.0.3"
   },
   "peerDependencies": {

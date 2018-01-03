@@ -11,14 +11,6 @@ import { SailsRequest } from './sails-request';
 import { Subject } from 'rxjs/Subject';
 import { clean } from './utils';
 
-const SAILS_IO_SDK_STRING = '__sails_io_sdk';
-
-const SAILS_IO_SDK = {
-  language: 'javascript',
-  platform: 'browser',
-  version: '1.1.12',
-};
-
 @Injectable()
 export class SailsClient {
   private defaultHeaders: any;
@@ -30,11 +22,13 @@ export class SailsClient {
   public requestErrors: Observable<SailsError>;
 
   constructor(config: ISailsClientConfig = {}, @Inject(IO_INSTANCE) ioInstance?: SocketIOSocket) {
-    const { uri, options } = this.getConfig(config);
+    const { uri, options } = config;
     if (config.headers) {
       this.defaultHeaders = config.headers;
     }
-    ioInstance ? (this.io = ioInstance) : (this.io = io(uri, options));
+    ioInstance
+      ? (this.io = ioInstance)
+      : (this.io = <SocketIOSocket>io.sails.connect(uri, options));
     this.uri = uri;
     this.configOptions = options;
     this.errorsSubject = new Subject();
@@ -70,10 +64,10 @@ export class SailsClient {
   }
 
   on(event: string): Observable<any> {
-    let nextFunc: (msg: any) => void;
+    let nextFunc: (msg?: any) => void;
 
     return Observable.create((obs: Observer<any>) => {
-      nextFunc = (msg: any) => obs.next(msg);
+      nextFunc = (msg?: any) => obs.next(msg);
       this.io.on(event, nextFunc);
       return () => this.io.off(event, nextFunc);
     });
@@ -99,27 +93,5 @@ export class SailsClient {
       headers: Object.assign({}, this.defaultHeaders, options.headers),
     });
     return SailsRequest.send(clean(request), this.io, this.errorsSubject);
-  }
-
-  private getConfig(config: ISailsClientConfig) {
-    const options: SocketIOConnectOpts = { transports: [ 'websocket' ] };
-
-    let uri = config.uri,
-      query: any = {};
-
-    Object.assign(
-      query,
-      Object.keys(SAILS_IO_SDK).forEach(
-        k => (query[`${SAILS_IO_SDK_STRING}_${k}`] = SAILS_IO_SDK[k])
-      )
-    );
-
-    if (config.options && config.options.query) {
-      Object.assign(query, config.options.query);
-    }
-
-    Object.assign(options, config.options, { query });
-
-    return { uri, options };
   }
 }

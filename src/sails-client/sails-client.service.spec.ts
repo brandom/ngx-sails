@@ -17,6 +17,9 @@ describe('SailsClientService', () => {
 
   beforeAll(done => {
     client = new MockClient(MockServer);
+    client.request = (request: any, cb: any) => {
+      client.emit(request.method, request, (res: any) => cb(null, res));
+    };
     client.off = function() {};
     client.on('connect', (socket: any) => {
       done();
