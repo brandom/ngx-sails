@@ -1,6 +1,6 @@
 {
   "name": "ngx-sails",
-  "version": "0.5.0",
+  "version": "1.0.0-pre",
   "description": "Sails client for Angular (2+)",
   "scripts": {
     "transpile": "ngc -p src/tsconfig.lib.json",
