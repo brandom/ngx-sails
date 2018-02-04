@@ -1,62 +1,58 @@
 const ENV = process.env.npm_lifecycle_event;
 const WATCH = ENV === 'test:watch';
 
-module.exports = function (config) {
+module.exports = function(config) {
   const CONFIGURATION = {
-    frameworks: ['jasmine', 'karma-typescript'],
-    files: [{
-      pattern: 'tests/base.spec.ts'
-    },
-    {
-      pattern: 'src/**/*.+(ts|html)'
-    }
+    frameworks: [ 'jasmine', 'karma-typescript' ],
+    files: [
+      {
+        pattern: 'tests/base.spec.ts',
+      },
+      {
+        pattern: 'src/**/*.+(ts|html)',
+      },
     ],
     preprocessors: {
-      '**/*.ts': ['karma-typescript']
+      '**/*.ts': [ 'karma-typescript' ],
     },
     karmaTypescriptConfig: {
-      exclude: ['dist', 'node_modules'],
+      exclude: [ 'dist', 'node_modules' ],
       bundlerOptions: {
         entrypoints: /\.spec\.ts$/,
-        transforms: [
-          require('karma-typescript-angular2-transform')
-        ]
+        transforms: [ require('karma-typescript-angular2-transform') ],
       },
       compilerOptions: {
-        lib: ["es2015", "dom"]
-      }
+        lib: [ 'es2015', 'dom' ],
+      },
     },
-    reporters: ['progress', 'karma-typescript', 'kjhtml'],
-    browsers: ['Chrome'],
+    reporters: [ 'progress', 'karma-typescript', 'kjhtml' ],
+    browsers: [ 'Chrome' ],
     colors: true,
     logLevel: config.LOG_INFO,
     singleRun: !WATCH,
     autoWatch: WATCH,
     client: {
-      captureConsole: true,
-      clearContext: false
-    }
+      captureConsole: false,
+      clearContext: false,
+    },
   };
 
   if (!WATCH) {
     CONFIGURATION.karmaTypescriptConfig.coverageOptions = {
       instrumentation: true,
-      exclude: [
-        /\.(d|spec|test|module|ngfactory)\.ts/,
-        /\index.ts/,
-      ]
+      exclude: [ /\.(d|spec|test|module|ngfactory)\.ts/, /\index.ts/ ],
     };
     CONFIGURATION.karmaTypescriptConfig.reports = {
-      'text': '',
+      text: '',
       'text-summary': '',
-      'html': {
-        'directory': 'coverage',
+      html: {
+        directory: 'coverage',
       },
-      'lcovonly': {
-        'directory': 'coverage',
-        'subdirectory': 'lcov',
-        'filename': 'lcov.info'
-      }
+      lcovonly: {
+        directory: 'coverage',
+        subdirectory: 'lcov',
+        filename: 'lcov.info',
+      },
     };
   }
 
