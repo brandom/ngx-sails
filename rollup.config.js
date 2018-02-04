@@ -1,6 +1,5 @@
 import commonjs from 'rollup-plugin-commonjs';
 import resolveAliases from 'rollup-plugin-resolve-aliases';
-import rxPaths from 'rxjs/_esm5/path-mapping';
 import { rollupGlobals } from './tools/package/rollup-globals.ts';
 
 export default {
@@ -19,7 +18,6 @@ export default {
       aliases: {
         'socket.io-client': 'node_modules/socket.io-client/dist/socket.io.js',
       },
-      ...rxPaths,
     }),
   ],
   external: Object.keys(rollupGlobals),
